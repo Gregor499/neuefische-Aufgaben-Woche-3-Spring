@@ -11,3 +11,4 @@ public class NeuefischeAufgabenWoche3SpringApplication {
 	}
 
 }
+
