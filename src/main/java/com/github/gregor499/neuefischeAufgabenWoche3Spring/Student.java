@@ -1,5 +1,7 @@
 package com.github.gregor499.neuefischeAufgabenWoche3Spring;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.UUID;
 
 public class Student {

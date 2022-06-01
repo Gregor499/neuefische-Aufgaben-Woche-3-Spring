@@ -6,18 +6,20 @@ import java.util.*;
 
 @Service
 public class StudentService {
-
-    private final Map<String, Student> students = new HashMap<>();
+    private final StudentRepository studentRepository;
+    public StudentService(StudentRepository students) {
+        this.studentRepository = students;
+    }
 
     public Optional<Student> getStudent(String id) {
-        return Optional.ofNullable(students.get(id));
+        return studentRepository.getStudent(id);
     }
 
     public Collection<Student> getStudents() {
-        return Collections.unmodifiableCollection(students.values());
+        return Collections.unmodifiableCollection(studentRepository.getStudents());
     }
 
     public void createStudent(Student student) {
-        students.put(student.getId(), student);
+        studentRepository.createStudent(student);
     }
 }
