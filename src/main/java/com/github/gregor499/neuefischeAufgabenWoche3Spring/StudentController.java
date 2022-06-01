@@ -1,19 +1,35 @@
 package com.github.gregor499.neuefischeAufgabenWoche3Spring;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
-    @GetMapping
-    public Student getStudent(){
-        return new Student("Max", "Mustermann");
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    //@PostMapping
+    @GetMapping
+    public Collection<Student> getStudents() {
+        return studentService.getStudents();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudent(@PathVariable String id) {
+        return ResponseEntity.of(studentService.getStudent(id));
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createStudent(@RequestBody Student student) {
+        studentService.createStudent(student);
+    }
 
 }
